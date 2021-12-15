@@ -99,12 +99,11 @@ public class People : IEquatable<People>
         {
             Console.Write("Input ID yang akan dihapus: ");
             int id = Convert.ToInt32(Console.ReadLine());
-            peopleList.RemoveAt(id);
-            //peopleList.Remove(new People() { Id = id });
+            peopleList.RemoveAt(id-1);
             Console.Clear();
-            Console.WriteLine("produk berhasil dihapus");
+            Console.WriteLine($"User dengan ID {id} berhasil dihapus");
             Console.WriteLine();
-            Console.Write("Hapus Produk lagi? (Y/N)");
+            Console.Write("Hapus data lagi? (Y/N)");
             choice = Console.ReadLine();
         } while (choice.ToUpper() == "Y");
     }
@@ -148,7 +147,11 @@ public class People : IEquatable<People>
                     Console.WriteLine(batas);
                     Console.WriteLine();
                     Console.WriteLine($"{null,3} ID {null,5} {null,10} Name {null,10} {null,5} Username {null,5} {null,8} Password {null,5} ");
-                    Console.WriteLine(peopleList.Find(x => x.Name.ToLower().Contains(name.ToLower())));
+                    Console.WriteLine();
+                    foreach (var search in peopleList.Where(x => x.Name.ToLower().Contains(name.ToLower())))
+                    {
+                        Console.WriteLine(search);
+                    }
                     Console.WriteLine();
                     Console.WriteLine(batas);
                     break;
@@ -192,6 +195,7 @@ public class People : IEquatable<People>
         Console.Write("Input ID yang ingin diubah: ");
         int id = Convert.ToInt32(Console.ReadLine());
         Console.WriteLine();
+
         foreach (var update in peopleList.Where(x => x.Id == id))
         {
             Console.Write("Input First Name: ");
@@ -207,6 +211,7 @@ public class People : IEquatable<People>
             update.Username = username;
             update.Password = password;
         }
+
         Console.WriteLine();
         Console.WriteLine($"Update Data dengan ID {id} Berhasil");
     }
