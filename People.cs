@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 public class People : IEquatable<People>
 {
@@ -53,13 +54,23 @@ public class People : IEquatable<People>
             string firstName = Console.ReadLine();
             Console.Write("Input Last Name: ");
             string lastName = Console.ReadLine();
-            Console.Write("Input Password: ");
-            String password = Console.ReadLine();
+            String password = EntryAndCheckPassworrd() ;
             String fullName = $"{firstName} {lastName}";
             String username = firstName.Substring(0, 2) + lastName.Substring(0, 2);
             peopleDatabase.Add(new People() { Id = id, Name = fullName, Username = username.ToLower(), Password = password });
             choice = AskRepeatOrNot(firstName, lastName);
         } while (choice.ToUpper() == "Y");
+    }
+
+    private string EntryAndCheckPassworrd()
+    {
+        String get = "";
+        do
+        {
+            Console.Write("Input Password: ");
+            get = Console.ReadLine();
+        } while (!ValidatePassword(get));
+        return get;
     }
 
     private string AskRepeatOrNot(string firstName, string lastName)
@@ -133,7 +144,7 @@ public class People : IEquatable<People>
             Console.Write("Input Last Name: ");
             string lastName = Console.ReadLine();
             Console.Write("Input Password: ");
-            String password = Console.ReadLine();
+            String password = EntryAndCheckPassworrd();
             String fullName = $"{firstName} {lastName}";
             String username = firstName.Substring(0, 2) + lastName.Substring(0, 2);
             peopleDatabase[index].Name = fullName;
@@ -217,7 +228,7 @@ public class People : IEquatable<People>
 
         foreach (People person in peopleDatabase)
         {
-            Console.WriteLine($"{null,3} {person.Id} {null,5} {null,10}  {person.Name} {null,10} {null,5} {person.Password} {null,5} {null,8} ________ {null,5} ");
+            Console.WriteLine($"{null,3} {person.Id} {null,5} {null,10}  {person.Name} {null,10} {null,5} {person.Username} {null,5} {null,8} {person.Password} {null,5} ");
 
         }
         Console.WriteLine();
@@ -270,9 +281,109 @@ public class People : IEquatable<People>
                 break;
         }
     }
+    static bool ValidatePasswordP1(string password)
+    {
+        const int MIN_LENGTH = 8;
+        const int MAX_LENGTH = 15;
+
+        if (password == null) throw new ArgumentNullException();
+
+        bool meetsLengthRequirements = password.Length >= MIN_LENGTH && password.Length <= MAX_LENGTH;
+        bool hasUpperCaseLetter = false;
+        bool hasLowerCaseLetter = false;
+        bool hasDecimalDigit = false;
+
+        if (meetsLengthRequirements)
+        {
+            foreach (char c in password)
+            {
+                if (char.IsUpper(c)) hasUpperCaseLetter = true;
+                else if (char.IsLower(c)) hasLowerCaseLetter = true;
+                else if (char.IsDigit(c)) hasDecimalDigit = true;
+            }
+        }
+
+        bool isValid = meetsLengthRequirements
+                    && hasUpperCaseLetter
+                    && hasLowerCaseLetter
+                    && hasDecimalDigit
+                    ;
+        NotifErorPassword(meetsLengthRequirements, "It's Must 8 - 15 Caracter");
+        NotifErorPassword(hasUpperCaseLetter, "It's containt Uppercase letter");
+        NotifErorPassword(hasLowerCaseLetter, "It's containt Lower Case letter");
+        NotifErorPassword(hasDecimalDigit, "It's containt decimal number");
+        return isValid;
+
+    }
+    private bool ValidatePassword(string password)
+    {
+        var input = password;
+        String ErrorMessage = "";
+
+        if (string.IsNullOrWhiteSpace(input))
+        {
+            throw new Exception("Password should not be empty");
+        }
+
+        var hasNumber = new Regex(@"[0-9]+");
+        var hasUpperChar = new Regex(@"[A-Z]+");
+        var hasMiniMaxChars = new Regex(@".{8,15}");
+        var hasLowerChar = new Regex(@"[a-z]+");
+        var hasSymbols = new Regex(@"[!@#$%^&*()_+=\[{\]};:<>|./?,-]");
+
+        if (!hasLowerChar.IsMatch(input))
+        {
+            ErrorMessage = "Password should contain at least one lower case letter.";
+            NotifErorPassword(false,ErrorMessage);
+            return false;
+        }
+        else if (!hasUpperChar.IsMatch(input))
+        {
+            ErrorMessage = "Password should contain at least one upper case letter.";
+            NotifErorPassword(false,ErrorMessage);
+            return false;
+        }
+        else if (!hasMiniMaxChars.IsMatch(input))
+        {
+            ErrorMessage = "Password should not be lesser than 8 or greater than 15 characters.";
+            NotifErorPassword(false,ErrorMessage);
+
+            return false;
+        }
+        else if (!hasNumber.IsMatch(input))
+        {
+            ErrorMessage = "Password should contain at least one numeric value.";
+            NotifErorPassword(false,ErrorMessage);
+
+            return false;
+        }
+
+        else if (!hasSymbols.IsMatch(input))
+        {
+            ErrorMessage = "Password should contain at least one special (@#@#$%^&&) case character.";
+            NotifErorPassword(false,ErrorMessage);
+
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    private static void NotifErorPassword(bool state, string v)
+    {
+        if (!state)
+        {
+            Console.WriteLine("");
+            Console.WriteLine($"\t\t ~ {v}");
+            Console.WriteLine("");
+        }
+    }
 
     public void LoginPage(List<People> personList)
     {
         Console.WriteLine("Coming Soon");
     }
+
 }
