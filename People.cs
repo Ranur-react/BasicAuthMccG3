@@ -145,5 +145,6 @@ public class People : IEquatable<People>
 
     public void LoginPage(List<People> personList)
     {
+        Console.WriteLine("Coming Soon");
     }
 }
