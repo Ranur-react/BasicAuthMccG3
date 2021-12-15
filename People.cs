@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 public class People : IEquatable<People>
 {
@@ -46,6 +47,7 @@ public class People : IEquatable<People>
 
     public void AddData(String choice)
     {
+        String password = null;
         int id = 0;
         do
         {
@@ -62,10 +64,19 @@ public class People : IEquatable<People>
 
             Console.Write("Input First Name: ");
             string firstName = Console.ReadLine();
+            Console.WriteLine();
+
             Console.Write("Input Last Name: ");
             string lastName = Console.ReadLine();
-            Console.Write("Input Password: ");
-            String password = Console.ReadLine();
+            Console.WriteLine();
+
+            do
+            {
+                Console.Write("Input Password: ");
+                password = Console.ReadLine();
+                Console.WriteLine();
+            } while (PasswordValidation(password) == false);
+
             String fullName = $"{firstName} {lastName}";
             String username = firstName.Substring(0, 2) + lastName.Substring(0, 2);
 
@@ -77,6 +88,7 @@ public class People : IEquatable<People>
             Console.WriteLine();
             Console.WriteLine("Tambah Produk lagi? (Y/N)");
             choice = Console.ReadLine();
+            Console.Clear();
 
         } while (choice.ToUpper() == "Y");
     }
@@ -99,7 +111,7 @@ public class People : IEquatable<People>
         {
             Console.Write("Input ID yang akan dihapus: ");
             int id = Convert.ToInt32(Console.ReadLine());
-            peopleList.RemoveAt(id-1);
+            peopleList.RemoveAt(id - 1);
             Console.Clear();
             Console.WriteLine($"User dengan ID {id} berhasil dihapus");
             Console.WriteLine();
@@ -214,5 +226,52 @@ public class People : IEquatable<People>
 
         Console.WriteLine();
         Console.WriteLine($"Update Data dengan ID {id} Berhasil");
+    }
+
+    private bool PasswordValidation(string password)
+    {
+        var input = password;
+
+        if (string.IsNullOrWhiteSpace(input))
+        {
+            throw new Exception("Password should not be empty");
+        }
+
+        var hasNumber = new Regex(@"[0-9]+");
+        var hasUpperChar = new Regex(@"[A-Z]+");
+        var hasMiniMaxChars = new Regex(@".{8,15}");
+        var hasLowerChar = new Regex(@"[a-z]+");
+        var hasSymbols = new Regex(@"[!@#$%^&*()_+=\[{\]};:<>|./?,-]");
+
+        if (!hasLowerChar.IsMatch(input))
+        {
+            Console.WriteLine("Password should contain At least one lower case letter");
+            return false;
+        }
+        else if (!hasUpperChar.IsMatch(input))
+        {
+            Console.WriteLine("Password should contain At least one upper case letter");
+            return false;
+        }
+        else if (!hasMiniMaxChars.IsMatch(input))
+        {
+            Console.WriteLine("Password should not be less than or greater than 12 characters");
+            return false;
+        }
+        else if (!hasNumber.IsMatch(input))
+        {
+            Console.WriteLine("Password should contain At least one numeric value");
+            return false;
+        }
+
+        else if (!hasSymbols.IsMatch(input))
+        {
+            Console.WriteLine("Password should contain At least one special case characters");
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 }
