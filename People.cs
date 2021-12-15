@@ -191,7 +191,7 @@ public class People : IEquatable<People>
     {
         Console.Write("Input ID yang ingin diubah: ");
         int id = Convert.ToInt32(Console.ReadLine());
-
+        Console.WriteLine();
         foreach (var update in peopleList.Where(x => x.Id == id))
         {
             Console.Write("Input First Name: ");

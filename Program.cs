@@ -33,7 +33,6 @@ class Program
                         User.ShowData();
                         Console.WriteLine($"{batas}");
                         UpdateCode(User);
-                        ContinueCode();
                         break;
                     }
                 case 3:
@@ -121,12 +120,15 @@ class Program
     {
         Console.WriteLine();
         Console.WriteLine("press U to update or Enter to exit");
+        Console.WriteLine();
         String next = Console.ReadLine();
         if (next.ToLower() == "u")
         {
+            Console.Clear();
             user.UpdateData();
+            Console.WriteLine();
+            next = Console.ReadLine();
         }
-        Console.WriteLine();
     }
 }
 
