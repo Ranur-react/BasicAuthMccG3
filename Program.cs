@@ -52,7 +52,7 @@ class Program
                 case 5:
                     Console.Clear();
                     Banner("Login Page");
-                    user.LoginPage(personList);
+                    user.LoginPage();
                     ContinueCode();
                     break;
                 case 6:

@@ -385,5 +385,47 @@ public class People : IEquatable<People>
     {
         Console.WriteLine("Coming Soon");
     }
+    public void LoginPage()
+    {
+        try
+        {
+            Console.Write("Input Username: ");
+            string username = Console.ReadLine();
+            Console.Write("Input Password: ");
+            string password = EntryAndCheckPassworrd();
+
+            Console.Clear();
+            Console.WriteLine();
+
+            var user = peopleDatabase.Find(x => x.Username.ToLower().Equals(username.ToLower()));
+
+
+            if (user != null)
+            {
+                if (user.Username == username && password == user.Password)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Password dan username Benar.. Kamu Sukses Masuk :D ");
+                }
+                else if (user.Username == username || password == user.Password)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Username Ditemukan , Password Salah ! belum sukses masuk");
+                }
+                else
+                {
+                    Console.WriteLine("Username dan  Password Salah ! belum sukses masuk");
+                }
+            }
+            else {
+                Console.WriteLine("Kamu Belum Terdaftar, Hubungi admin");
+
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Ada yang salah dari cara mu masuk,{e.Message}");
+        }
+    }
 
 }
