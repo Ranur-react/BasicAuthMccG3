@@ -160,23 +160,54 @@ public class People : IEquatable<People>
 
     public void LoginPage()
     {
-        Console.Write("Input Username: ");
-        string username = Console.ReadLine();
-        Console.Write("Input Password: ");
-        string password = Console.ReadLine();
+        try
+        {
+            Console.Write("Input Username: ");
+            string username = Console.ReadLine();
+            Console.Write("Input Password: ");
+            string password = Console.ReadLine();
 
-        Console.Clear();
+            Console.Clear();
+            Console.WriteLine();
+
+            var user = peopleList.Find(x => x.Username.ToLower().Equals(username.ToLower()));
+
+            if (user.Username == username && password == user.Password)
+            {
+                Console.WriteLine("Login Berhasil");
+            }
+            else
+            {
+                Console.WriteLine("Password Salah");
+            }
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Username tidak ditemukan");
+        }
+    }
+
+    public void UpdateData()
+    {
+        Console.Write("Input ID yang ingin diubah: ");
+        int id = Convert.ToInt32(Console.ReadLine());
+
+        foreach (var update in peopleList.Where(x => x.Id == id))
+        {
+            Console.Write("Input First Name: ");
+            string firstName = Console.ReadLine();
+            Console.Write("Input Last Name: ");
+            string lastName = Console.ReadLine();
+            Console.Write("Input Password: ");
+            String password = Console.ReadLine();
+            String fullName = $"{firstName} {lastName}";
+            String username = firstName.Substring(0, 2) + lastName.Substring(0, 2);
+
+            update.Name = fullName;
+            update.Username = username;
+            update.Password = password;
+        }
         Console.WriteLine();
-
-        var user = peopleList.Find(x => x.Username.ToLower().Equals(username.ToLower()));
-
-        if (user.Username == username && password == user.Password)
-        {
-            Console.WriteLine("Login Berhasil");
-        }
-        else
-        {
-            Console.WriteLine("Username / Password Salah");
-        }
+        Console.WriteLine($"Update Data dengan ID {id} Berhasil");
     }
 }

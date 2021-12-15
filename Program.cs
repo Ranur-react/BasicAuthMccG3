@@ -32,6 +32,7 @@ class Program
                         Banner("Data User");
                         User.ShowData();
                         Console.WriteLine($"{batas}");
+                        UpdateCode(User);
                         ContinueCode();
                         break;
                     }
@@ -114,6 +115,18 @@ class Program
         Console.WriteLine("press enter to continue");
         String next = Console.ReadLine();
         Console.Clear();
+    }
+
+    static void UpdateCode(People user)
+    {
+        Console.WriteLine();
+        Console.WriteLine("press U to update or Enter to exit");
+        String next = Console.ReadLine();
+        if (next.ToLower() == "u")
+        {
+            user.UpdateData();
+        }
+        Console.WriteLine();
     }
 }
 
