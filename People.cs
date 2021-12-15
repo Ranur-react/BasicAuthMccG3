@@ -12,6 +12,8 @@ public class People : IEquatable<People>
 
     public String Password { get; set; }
 
+    private static List<People> peopleList = new List<People>();
+
     public override string ToString()
     {
         return $"| {Id,5} | {Name,28} | {Username,20} | {Password,20} |";
@@ -42,12 +44,21 @@ public class People : IEquatable<People>
         return Id.Equals(other.Id) && Name.Equals(other.Name);
     }
 
-    public void AddData(List<People> peopleList, String choice)
+    public void AddData(String choice)
     {
+        int id = 0;
         do
         {
-            var lastPerson = peopleList[^1];
-            int id = lastPerson.Id + 1;
+            var test = peopleList.Count;
+            if (test == 0)
+            {
+                id = 1;
+            }
+            else
+            {
+                var lastPerson = peopleList[^1];
+                id = lastPerson.Id + 1;
+            }
 
             Console.Write("Input First Name: ");
             string firstName = Console.ReadLine();
@@ -66,29 +77,30 @@ public class People : IEquatable<People>
             Console.WriteLine();
             Console.WriteLine("Tambah Produk lagi? (Y/N)");
             choice = Console.ReadLine();
+
         } while (choice.ToUpper() == "Y");
     }
 
-    public void ShowData(List<People> personList)
+    public void ShowData()
     {
         Console.WriteLine($"{null,3} ID {null,5} {null,10}  Name {null,10} {null,5} Username {null,5} {null,8} Password {null,5} ");
         //Console.WriteLine($"{null,3} __ {null,5} {null,10}  ____ {null,10} {null,5} ________ {null,5} {null,8} ________ {null,5} ");
         Console.WriteLine();
-        foreach (People person in personList)
+        foreach (People person in peopleList)
         {
             Console.WriteLine($"{person}");
         }
         Console.WriteLine();
     }
 
-    public void DeleteData(List<People> personList, String choice)
+    public void DeleteData(String choice)
     {
         do
         {
             Console.Write("Input ID yang akan dihapus: ");
             int id = Convert.ToInt32(Console.ReadLine());
-            personList.RemoveAt(id);
-            //personList.Remove(new People() { Id = id });
+            peopleList.RemoveAt(id);
+            //peopleList.Remove(new People() { Id = id });
             Console.Clear();
             Console.WriteLine("produk berhasil dihapus");
             Console.WriteLine();
@@ -97,13 +109,13 @@ public class People : IEquatable<People>
         } while (choice.ToUpper() == "Y");
     }
 
-    public void SearchData(List<People> personList, String batas)
+    public void SearchData(String batas)
     {
         String[] menu = new string[2] { "ID", "Name" };
 
         for (int i = 0; i < menu.Length; i++)
         {
-            Console.Write($"{i + 1,38}. {menu[i]}");
+            Console.Write($"{i + 1,40}. {menu[i]}");
             Console.WriteLine();
         }
         Console.WriteLine();
@@ -111,6 +123,7 @@ public class People : IEquatable<People>
         Console.WriteLine();
         Console.Write("Masukkan pilihan: ");
         int index = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine();
         switch (index)
         {
             case 1:
@@ -119,9 +132,10 @@ public class People : IEquatable<People>
                     int id = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine();
                     Console.WriteLine(batas);
+                    Console.WriteLine();
                     Console.WriteLine($"{null,3} ID {null,5} {null,10}  Name {null,10} {null,5} Username {null,5} {null,8} Password {null,5}");
                     Console.WriteLine();
-                    Console.WriteLine(personList.Find(x => x.Id.Equals(id)));
+                    Console.WriteLine(peopleList.Find(x => x.Id.Equals(id)));
                     Console.WriteLine();
                     Console.WriteLine(batas);
                     break;
@@ -132,8 +146,9 @@ public class People : IEquatable<People>
                     string name = Console.ReadLine();
                     Console.WriteLine();
                     Console.WriteLine(batas);
-                    Console.WriteLine($"{null,3} ID {null,5} {null,10}  Name {null,10} {null,5} Username {null,5} {null,8} Password {null,5} ");
-                    Console.WriteLine(personList.Find(x => x.Name.ToLower().Contains(name.ToLower())));
+                    Console.WriteLine();
+                    Console.WriteLine($"{null,3} ID {null,5} {null,10} Name {null,10} {null,5} Username {null,5} {null,8} Password {null,5} ");
+                    Console.WriteLine(peopleList.Find(x => x.Name.ToLower().Contains(name.ToLower())));
                     Console.WriteLine();
                     Console.WriteLine(batas);
                     break;
@@ -143,8 +158,25 @@ public class People : IEquatable<People>
         }
     }
 
-    public void LoginPage(List<People> personList)
+    public void LoginPage()
     {
-        Console.WriteLine("Coming Soon");
+        Console.Write("Input Username: ");
+        string username = Console.ReadLine();
+        Console.Write("Input Password: ");
+        string password = Console.ReadLine();
+
+        Console.Clear();
+        Console.WriteLine();
+
+        var user = peopleList.Find(x => x.Username.ToLower().Equals(username.ToLower()));
+
+        if (user.Username == username && password == user.Password)
+        {
+            Console.WriteLine("Login Berhasil");
+        }
+        else
+        {
+            Console.WriteLine("Username / Password Salah");
+        }
     }
 }

@@ -9,17 +9,12 @@ class Program
     {
         int index = 0;
         String choice = "X";
-
         People User = new People();
-        List<People> personList = new List<People>();
-        personList.Add(new People() { Name = "Avatar Roku", Id = 1, Username = "avro", Password = "123" });
-        personList.Add(new People() { Name = "Naruto Uzumaki", Id = 2, Username = "nauz", Password = "123" });
-
-    start:
+        
         Console.Clear();
         MainMenu();
         try
-        {
+       {
             Console.Write("Masukkan pilihan: ");
             index = Convert.ToInt32(Console.ReadLine());
             switch (index)
@@ -28,40 +23,40 @@ class Program
                     {
                         Console.Clear();
                         Banner("Tambah Data");
-                        User.AddData(personList, choice);
-                        goto start;
+                        User.AddData(choice);
+                        break;
                     }
                 case 2:
                     {
                         Console.Clear();
                         Banner("Data User");
-                        User.ShowData(personList);
+                        User.ShowData();
                         Console.WriteLine($"{batas}");
                         ContinueCode();
-                        goto start;
+                        break;
                     }
                 case 3:
                     {
                         Console.Clear();
                         Banner("Hapus Data");
-                        User.DeleteData(personList, choice);
-                        goto start;
+                        User.DeleteData(choice);
+                        break;
                     }
                 case 4:
                     {
                         Console.Clear();
                         Banner("Cari Data");
-                        User.SearchData(personList, batas);
+                        User.SearchData(batas);
                         ContinueCode();
-                        goto start;
+                        break;
                     }
                 case 5:
                     {
                         Console.Clear();
                         Banner("Login Page");
-                        User.LoginPage(personList);
+                        User.LoginPage();
                         ContinueCode();
-                        goto start;
+                        break;
                     }
                 case 6:
                     {
@@ -86,12 +81,7 @@ class Program
             ContinueCode();
             Main(args);
         }
-        finally
-        {
-            Console.Clear();
-            MainMenu();
-            Console.WriteLine();
-        }
+        Main(args);
     }
 
     static void Banner(String title)
@@ -115,12 +105,13 @@ class Program
         }
         Console.WriteLine();
         Console.WriteLine(batas);
+        Console.WriteLine();
     }
 
     static void ContinueCode()
     {
         Console.WriteLine();
-        Console.WriteLine("press any key to continue");
+        Console.WriteLine("press enter to continue");
         String next = Console.ReadLine();
         Console.Clear();
     }
