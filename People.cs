@@ -79,7 +79,6 @@ public class People : IEquatable<People>
             Console.WriteLine($"{person}");
         }
         Console.WriteLine();
-        Console.WriteLine();
     }
 
     public void DeleteData(List<People> personList, String choice)
@@ -88,12 +87,63 @@ public class People : IEquatable<People>
         {
             Console.Write("Input ID yang akan dihapus: ");
             int id = Convert.ToInt32(Console.ReadLine());
-            personList.Remove(new People() { Id = id });
+            personList.RemoveAt(id);
+            //personList.Remove(new People() { Id = id });
             Console.Clear();
             Console.WriteLine("produk berhasil dihapus");
             Console.WriteLine();
             Console.Write("Hapus Produk lagi? (Y/N)");
             choice = Console.ReadLine();
         } while (choice.ToUpper() == "Y");
+    }
+
+    public void SearchData(List<People> personList, String batas)
+    {
+        String[] menu = new string[2] { "ID", "Name" };
+
+        for (int i = 0; i < menu.Length; i++)
+        {
+            Console.Write($"{i + 1,38}. {menu[i]}");
+            Console.WriteLine();
+        }
+        Console.WriteLine();
+        Console.WriteLine(batas);
+        Console.WriteLine();
+        Console.Write("Masukkan pilihan: ");
+        int index = Convert.ToInt32(Console.ReadLine());
+        switch (index)
+        {
+            case 1:
+                {
+                    Console.Write("Input Search ID: ");
+                    int id = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine();
+                    Console.WriteLine(batas);
+                    Console.WriteLine($"{null,3} ID {null,5} {null,10}  Name {null,10} {null,5} Username {null,5} {null,8} Password {null,5}");
+                    Console.WriteLine();
+                    Console.WriteLine(personList.Find(x => x.Id.Equals(id)));
+                    Console.WriteLine();
+                    Console.WriteLine(batas);
+                    break;
+                }
+            case 2:
+                {
+                    Console.Write("Input Search Name: ");
+                    string name = Console.ReadLine();
+                    Console.WriteLine();
+                    Console.WriteLine(batas);
+                    Console.WriteLine($"{null,3} ID {null,5} {null,10}  Name {null,10} {null,5} Username {null,5} {null,8} Password {null,5} ");
+                    Console.WriteLine(personList.Find(x => x.Name.ToLower().Contains(name.ToLower())));
+                    Console.WriteLine();
+                    Console.WriteLine(batas);
+                    break;
+                }
+            default:
+                break;
+        }
+    }
+
+    public void LoginPage(List<People> personList)
+    {
     }
 }

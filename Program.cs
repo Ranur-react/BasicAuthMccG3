@@ -44,14 +44,26 @@ class Program
                     {
                         Console.Clear();
                         Banner("Hapus Data");
-                        //User.DeleteData(personList, choice);
+                        User.DeleteData(personList, choice);
                         goto start;
                     }
                 case 4:
                     {
-                        break;
+                        Console.Clear();
+                        Banner("Cari Data");
+                        User.SearchData(personList, batas);
+                        ContinueCode();
+                        goto start;
                     }
                 case 5:
+                    {
+                        Console.Clear();
+                        Banner("Login Page");
+                        User.LoginPage(personList);
+                        ContinueCode();
+                        goto start;
+                    }
+                case 6:
                     {
                         return;
                     }
