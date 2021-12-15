@@ -26,3 +26,17 @@ C:\Users\surya\source\repos\BasicAuthMccG3\obj\Debug\netcoreapp3.1\BasicAuthMccG
 C:\Users\surya\source\repos\BasicAuthMccG3\obj\Debug\netcoreapp3.1\BasicAuthMccG3.dll
 C:\Users\surya\source\repos\BasicAuthMccG3\obj\Debug\netcoreapp3.1\BasicAuthMccG3.pdb
 C:\Users\surya\source\repos\BasicAuthMccG3\obj\Debug\netcoreapp3.1\BasicAuthMccG3.genruntimeconfig.cache
+D:\MCC\C#-Practice\Prj Akhir OOP\BasicAuthMccG3\bin\Debug\netcoreapp3.1\BasicAuthMccG3.exe
+D:\MCC\C#-Practice\Prj Akhir OOP\BasicAuthMccG3\bin\Debug\netcoreapp3.1\BasicAuthMccG3.deps.json
+D:\MCC\C#-Practice\Prj Akhir OOP\BasicAuthMccG3\bin\Debug\netcoreapp3.1\BasicAuthMccG3.runtimeconfig.json
+D:\MCC\C#-Practice\Prj Akhir OOP\BasicAuthMccG3\bin\Debug\netcoreapp3.1\BasicAuthMccG3.runtimeconfig.dev.json
+D:\MCC\C#-Practice\Prj Akhir OOP\BasicAuthMccG3\bin\Debug\netcoreapp3.1\BasicAuthMccG3.dll
+D:\MCC\C#-Practice\Prj Akhir OOP\BasicAuthMccG3\bin\Debug\netcoreapp3.1\BasicAuthMccG3.pdb
+D:\MCC\C#-Practice\Prj Akhir OOP\BasicAuthMccG3\obj\Debug\netcoreapp3.1\BasicAuthMccG3.csproj.AssemblyReference.cache
+D:\MCC\C#-Practice\Prj Akhir OOP\BasicAuthMccG3\obj\Debug\netcoreapp3.1\BasicAuthMccG3.GeneratedMSBuildEditorConfig.editorconfig
+D:\MCC\C#-Practice\Prj Akhir OOP\BasicAuthMccG3\obj\Debug\netcoreapp3.1\BasicAuthMccG3.AssemblyInfoInputs.cache
+D:\MCC\C#-Practice\Prj Akhir OOP\BasicAuthMccG3\obj\Debug\netcoreapp3.1\BasicAuthMccG3.AssemblyInfo.cs
+D:\MCC\C#-Practice\Prj Akhir OOP\BasicAuthMccG3\obj\Debug\netcoreapp3.1\BasicAuthMccG3.csproj.CoreCompileInputs.cache
+D:\MCC\C#-Practice\Prj Akhir OOP\BasicAuthMccG3\obj\Debug\netcoreapp3.1\BasicAuthMccG3.dll
+D:\MCC\C#-Practice\Prj Akhir OOP\BasicAuthMccG3\obj\Debug\netcoreapp3.1\BasicAuthMccG3.pdb
+D:\MCC\C#-Practice\Prj Akhir OOP\BasicAuthMccG3\obj\Debug\netcoreapp3.1\BasicAuthMccG3.genruntimeconfig.cache
