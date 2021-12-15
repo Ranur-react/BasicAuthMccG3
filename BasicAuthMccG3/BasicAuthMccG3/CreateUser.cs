@@ -17,8 +17,31 @@
             Limite = limite;
             InputOptions();
         }
+        public static void InputOptions()
+        {
+            switch (InputIndex)
+            {
+                case 0:
+                    //inputproduk
+                    for (int i = 0; i < Limite; i++)
+                    {
+                        if (Entry())
+                        {
+                            break;
+                        }
+                    }
+                    ShowUpList(0, "Product List :");
+                    break;
+                default:
+                    //inputjual
+                    break;
+            }
+        }
+
+        public static bool Entry()
+        {
 
 
 
-    }
+        }
 }
