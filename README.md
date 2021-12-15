@@ -1,2 +1,5 @@
-# MccG3
-*[1.] User disuguhkan Tampilan Login , []
+# BASIC AUTHENTICATION DEVELOP
+
+#### 1. Create User
+    * Password Entry Validations on Create Password
+    * 
