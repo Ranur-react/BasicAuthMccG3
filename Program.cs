@@ -14,7 +14,7 @@ class Program
 
         MainMenu();
         try
-       {
+        {
             Console.Write("Masukkan pilihan: ");
             index = Convert.ToInt32(Console.ReadLine());
             switch (index)
