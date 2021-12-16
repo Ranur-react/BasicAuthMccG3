@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 
 class Program
 {
-    static String batas = "=====================================================================================";
+    static String batas = "========================================================================================================================";
 
     static void Main(string[] args)
     {
         int index = 0;
         String choice = "X";
         People User = new People();
-        
+
         Console.Clear();
+
         MainMenu();
         try
        {
@@ -87,7 +87,7 @@ class Program
     static void Banner(String title)
     {
         Console.WriteLine();
-        Console.WriteLine($"{title,50}");
+        Console.WriteLine($"{title,65}");
         Console.WriteLine();
         Console.WriteLine(batas);
         Console.WriteLine();
@@ -100,7 +100,7 @@ class Program
         Banner(title);
         for (int i = 0; i < menu.Length; i++)
         {
-            Console.Write($"{i + 1,38}. {menu[i]}");
+            Console.Write($"{i + 1,53}. {menu[i]}");
             Console.WriteLine();
         }
         Console.WriteLine();
@@ -119,13 +119,21 @@ class Program
     static void UpdateCode(People user)
     {
         Console.WriteLine();
-        Console.WriteLine("press U to update or Enter to exit");
+        Console.WriteLine($"{null,53}<<< Press >>>");
+        Console.WriteLine($"{null,38}D to delete || U to update || Enter to exit");
         Console.WriteLine();
         String next = Console.ReadLine();
         if (next.ToLower() == "u")
         {
-            Console.Clear();
+            Console.WriteLine();
             user.UpdateData();
+            Console.WriteLine();
+            next = Console.ReadLine();
+        }
+        else if (next.ToLower() == "d")
+        {
+            Console.WriteLine();
+            user.DeleteData("");
             Console.WriteLine();
             next = Console.ReadLine();
         }

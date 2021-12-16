@@ -17,7 +17,7 @@ public class People : IEquatable<People>
 
     public override string ToString()
     {
-        return $"| {Id,5} | {Name,28} | {Username,20} | {Password,20} |";
+        return $"| {Id,5} | {Name,25} | {Username,15} | {Password,30} |";
     }
 
     public override bool Equals(object obj)
@@ -36,6 +36,7 @@ public class People : IEquatable<People>
 
         return hashName ^ hashId;
     }
+
     public bool Equals(People other)
     {
         if (Object.ReferenceEquals(other, null)) return false;
@@ -48,27 +49,66 @@ public class People : IEquatable<People>
     public void AddData(String choice)
     {
         String password = null;
+        String firstName = null;
+        String lastName = null;
+        String userName = null;
         int id = 0;
+
         do
         {
             var test = peopleList.Count;
+            var user = peopleList.Find(x => x.Username.ToLower().Equals(userName.ToLower()));
+
             if (test == 0)
             {
+                do
+                {
+                    Console.Write("Input First Name: ");
+                    firstName = Console.ReadLine();
+                    Console.WriteLine();
+                } while (!NameValidation(firstName) == true);
+
+                do
+                {
+                    Console.Write("Input First Name: ");
+                    lastName = Console.ReadLine();
+                    Console.WriteLine();
+                } while (!NameValidation(lastName) == true);
+
                 id = 1;
+                userName = firstName.Substring(0, 2) + lastName.Substring(0, 2);
             }
             else
             {
                 var lastPerson = peopleList[^1];
                 id = lastPerson.Id + 1;
+                do
+                {
+                    do
+                    {
+                        Console.Write("Input First Name: ");
+                        firstName = Console.ReadLine();
+                        Console.WriteLine();
+                    } while (!NameValidation(firstName) == true);
+
+                    do
+                    {
+                        Console.Write("Input First Name: ");
+                        lastName = Console.ReadLine();
+                        Console.WriteLine();
+                    } while (!NameValidation(lastName) == true);
+
+                    userName = firstName.Substring(0, 2) + lastName.Substring(0, 2);
+
+                    if (user.Username == userName)
+                    {
+                        Console.WriteLine("Username sudah ada");
+                        String next = Console.ReadLine();
+
+                        Console.Clear();
+                    }
+                } while (user.Username == userName);
             }
-
-            Console.Write("Input First Name: ");
-            string firstName = Console.ReadLine();
-            Console.WriteLine();
-
-            Console.Write("Input Last Name: ");
-            string lastName = Console.ReadLine();
-            Console.WriteLine();
 
             do
             {
@@ -78,9 +118,9 @@ public class People : IEquatable<People>
             } while (!PasswordValidation(password) == true);
 
             String fullName = $"{firstName} {lastName}";
-            String username = firstName.Substring(0, 2) + lastName.Substring(0, 2);
+            //userName = firstName.Substring(0, 2) + lastName.Substring(0, 2);
 
-            peopleList.Add(new People() { Id = id, Name = fullName, Username = username.ToLower(), Password = password });
+            peopleList.Add(new People() { Id = id, Name = fullName, Username = userName.ToLower(), Password = BCrypt.Net.BCrypt.HashPassword(password) });
 
             Console.WriteLine();
             Console.Clear();
@@ -95,7 +135,7 @@ public class People : IEquatable<People>
 
     public void ShowData()
     {
-        Console.WriteLine($"{null,3} ID {null,5} {null,10}  Name {null,10} {null,5} Username {null,5} {null,8} Password {null,5} ");
+        Console.WriteLine($"{null,3} ID {null,5} {null,7}  Name {null,10} {null,3} Username {null,5} {null,25} Password {null,5} ");
         //Console.WriteLine($"{null,3} __ {null,5} {null,10}  ____ {null,10} {null,5} ________ {null,5} {null,8} ________ {null,5} ");
         Console.WriteLine();
         foreach (People person in peopleList)
@@ -139,14 +179,14 @@ public class People : IEquatable<People>
         {
             case 1:
                 {
-                    Console.Write("Input Search ID: ");
-                    int id = Convert.ToInt32(Console.ReadLine());
+                    Console.Write("Input Search Username: ");
+                    String username = Console.ReadLine();
                     Console.WriteLine();
                     Console.WriteLine(batas);
                     Console.WriteLine();
                     Console.WriteLine($"{null,3} ID {null,5} {null,10}  Name {null,10} {null,5} Username {null,5} {null,8} Password {null,5}");
                     Console.WriteLine();
-                    Console.WriteLine(peopleList.Find(x => x.Id.Equals(id)));
+                    Console.WriteLine(peopleList.Find(x => x.Username.Equals(username)));
                     Console.WriteLine();
                     Console.WriteLine(batas);
                     break;
@@ -169,6 +209,7 @@ public class People : IEquatable<People>
                     break;
                 }
             default:
+                Console.WriteLine("Input Salah");
                 break;
         }
     }
@@ -187,7 +228,7 @@ public class People : IEquatable<People>
 
             var user = peopleList.Find(x => x.Username.ToLower().Equals(username.ToLower()));
 
-            if (user.Username == username && password == user.Password)
+            if (user.Username == username && BCrypt.Net.BCrypt.Verify(password, user.Password))
             {
                 Console.WriteLine("Login Berhasil");
             }
@@ -204,12 +245,11 @@ public class People : IEquatable<People>
 
     public void UpdateData()
     {
-        Console.Write("Input ID yang ingin diubah: ");
-        int id = Convert.ToInt32(Console.ReadLine());
+        Console.Write("Input Username yang ingin diubah: ");
+        String username = Console.ReadLine();
         Console.WriteLine();
 
-        foreach (var update in peopleList.Where(x => x.Id == id))
-        {
+        var update in peopleList.Where(x => x.Username == username);
             Console.Write("Input First Name: ");
             string firstName = Console.ReadLine();
             Console.Write("Input Last Name: ");
@@ -217,15 +257,14 @@ public class People : IEquatable<People>
             Console.Write("Input Password: ");
             String password = Console.ReadLine();
             String fullName = $"{firstName} {lastName}";
-            String username = firstName.Substring(0, 2) + lastName.Substring(0, 2);
+            username = firstName.Substring(0, 2) + lastName.Substring(0, 2);
 
             update.Name = fullName;
             update.Username = username;
             update.Password = password;
-        }
 
         Console.WriteLine();
-        Console.WriteLine($"Update Data dengan ID {id} Berhasil");
+        Console.WriteLine($"Update data dengan username {username} berhasil");
     }
 
     private bool PasswordValidation(string password)
@@ -234,7 +273,10 @@ public class People : IEquatable<People>
 
         if (string.IsNullOrWhiteSpace(input))
         {
-            throw new Exception("Password should not be empty");
+            //throw new Exception("Password should not be empty");
+            Console.WriteLine("Password should not be empty");
+            Console.WriteLine();
+            return false;
         }
 
         var hasNumber = new Regex(@"[0-9]+");
@@ -267,6 +309,32 @@ public class People : IEquatable<People>
         else if (!hasSymbols.IsMatch(input))
         {
             Console.WriteLine("Password should contain At least one special case characters");
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    private bool NameValidation(string name)
+    {
+        var input = name;
+
+        if (string.IsNullOrWhiteSpace(input))
+        {
+            //throw new Exception();
+            Console.WriteLine("Name input should not be empty");
+            Console.WriteLine();
+            return false;
+        }
+
+        var hasMiniMaxChars = new Regex(@".{2,10}");
+
+        if (!hasMiniMaxChars.IsMatch(input))
+        {
+            Console.WriteLine("Name input should not be less than 2 or greater than 10 characters");
+            Console.WriteLine();
             return false;
         }
         else

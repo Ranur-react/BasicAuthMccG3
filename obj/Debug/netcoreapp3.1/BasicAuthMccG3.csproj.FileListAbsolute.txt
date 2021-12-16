@@ -26,3 +26,5 @@ C:\Users\surya\source\repos\BasicAuthMccG3\obj\Debug\netcoreapp3.1\BasicAuthMccG
 C:\Users\surya\source\repos\BasicAuthMccG3\obj\Debug\netcoreapp3.1\BasicAuthMccG3.dll
 C:\Users\surya\source\repos\BasicAuthMccG3\obj\Debug\netcoreapp3.1\BasicAuthMccG3.pdb
 C:\Users\surya\source\repos\BasicAuthMccG3\obj\Debug\netcoreapp3.1\BasicAuthMccG3.genruntimeconfig.cache
+C:\Users\surya\source\repos\BasicAuthMccG3\bin\Debug\netcoreapp3.1\BCrypt.Net-Core.dll
+C:\Users\surya\source\repos\BasicAuthMccG3\obj\Debug\netcoreapp3.1\BasicAuthMccG3.csproj.CopyComplete
