@@ -249,7 +249,8 @@ public class People : IEquatable<People>
         String username = Console.ReadLine();
         Console.WriteLine();
 
-        var update in peopleList.Where(x => x.Username == username);
+        foreach (var update in peopleList.Where(x => x.Username == username))
+        {
             Console.Write("Input First Name: ");
             string firstName = Console.ReadLine();
             Console.Write("Input Last Name: ");
@@ -262,6 +263,7 @@ public class People : IEquatable<People>
             update.Name = fullName;
             update.Username = username;
             update.Password = password;
+        }
 
         Console.WriteLine();
         Console.WriteLine($"Update data dengan username {username} berhasil");
