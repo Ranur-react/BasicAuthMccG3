@@ -75,7 +75,7 @@ public class People : IEquatable<People>
                 Console.Write("Input Password: ");
                 password = Console.ReadLine();
                 Console.WriteLine();
-            } while (PasswordValidation(password) == false);
+            } while (!PasswordValidation(password) == true);
 
             String fullName = $"{firstName} {lastName}";
             String username = firstName.Substring(0, 2) + lastName.Substring(0, 2);
@@ -255,7 +255,7 @@ public class People : IEquatable<People>
         }
         else if (!hasMiniMaxChars.IsMatch(input))
         {
-            Console.WriteLine("Password should not be less than or greater than 12 characters");
+            Console.WriteLine("Password should not be less than 8 or greater than 15 characters");
             return false;
         }
         else if (!hasNumber.IsMatch(input))
