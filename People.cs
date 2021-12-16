@@ -102,9 +102,10 @@ public class People : IEquatable<People>
 
                     if (user.Username == userName)
                     {
-                        Console.WriteLine("Username sudah ada");
-                        String next = Console.ReadLine();
+                        Random random = new Random();
+                        int num = random.Next(10,99);
 
+                        userName = userName + num;
                         Console.Clear();
                     }
                 } while (user.Username == userName);
